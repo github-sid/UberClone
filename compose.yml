@@ -1,0 +1,11 @@
+
+services:
+  postgres:
+    image: 'postgis/postgis:14-3.1'
+    environment:
+      - 'POSTGRES_DB=uber'
+      - 'POSTGRES_PASSWORD=password'
+      - 'POSTGRES_USER=sid'
+    ports:
+      - '5432:5432'
+
