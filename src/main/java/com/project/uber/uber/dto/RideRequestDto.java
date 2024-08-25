@@ -32,4 +32,7 @@ public class RideRequestDto {
 
     private RideRequestStatus rideRequestStatus;
 
+    private double fare;
+
+
 }

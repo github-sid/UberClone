@@ -5,6 +5,7 @@ import com.project.uber.uber.dto.SignupDto;
 import com.project.uber.uber.dto.UserDto;
 import com.project.uber.uber.entities.User;
 import com.project.uber.uber.entities.enums.Role;
+import com.project.uber.uber.exceptions.RuntimeConflictException;
 import com.project.uber.uber.repositories.UserRepository;
 import com.project.uber.uber.services.AuthService;
 import com.project.uber.uber.services.RiderService;
@@ -37,8 +38,7 @@ public class AuthServiceImpl implements AuthService {
         if(user != null)
         {
             //Throw exception
-            //TODO
-            int i ;
+            throw new RuntimeConflictException("Cannot signup, User already exists with email "+signupDto.getEmail());
         }
         User mappedUser = modelMapper.map(signupDto,User.class);
         mappedUser.setRoles(Set.of(Role.RIDER));
@@ -46,6 +46,8 @@ public class AuthServiceImpl implements AuthService {
 
         //User entities
         riderService.createNewRider(savedUser);
+
+        //TODO Wallet
 
         return modelMapper.map(savedUser,UserDto.class);
     }
